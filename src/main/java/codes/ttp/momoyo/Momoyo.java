@@ -11,12 +11,14 @@ import java.lang.reflect.Modifier;
 @Mod(
         modid = Momoyo.MOD_ID,
         name = Momoyo.MOD_NAME,
-        version = Momoyo.VERSION
+        version = Momoyo.VERSION,
+        dependencies = Momoyo.DEPENDENCIES
 )
 public class Momoyo {
     public static final String MOD_ID = "momoyo";
     public static final String MOD_NAME = "Momoyo";
     public static final String VERSION = "0.0.1";
+    public static final String DEPENDENCIES = "required-before:gregtech";
 
     private static Logger logger;
 
