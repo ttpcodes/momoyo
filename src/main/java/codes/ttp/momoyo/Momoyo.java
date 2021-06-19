@@ -33,17 +33,27 @@ public class Momoyo {
 
     @Mod.EventHandler
     public void postinit(FMLPostInitializationEvent event) {
-        logger.info("Modifying GregTech Community Edition material harvest levels");
-        Class<?> materials;
+        logger.info("Modifying GregTech/Gregicality material harvest levels");
+        Class<?> gregicalityMaterials;
         try {
-            materials = Class.forName("gregtech.api.unification.material.Materials");
+            gregicalityMaterials = Class.forName("gregicadditions.GAMaterials");
+        } catch (ClassNotFoundException e) {
+            logger.fatal("Gregicality materials were not detected");
+            throw new RuntimeException(e);
+        }
+
+        Class<?> gregtechMaterials;
+        try {
+            gregtechMaterials = Class.forName("gregtech.api.unification.material.Materials");
         } catch (ClassNotFoundException e) {
             logger.fatal("GregTech Community Edition materials were not detected");
             throw new RuntimeException(e);
         }
 
-        setHarvestLevel("Aluminium", 70, materials);
-        logger.info("Modification of GregTech Community Edition material harvest levels complete");
+        setHarvestLevel("Aluminium", 70, gregtechMaterials);
+        setHarvestLevel("Trinium", 70, gregicalityMaterials);
+
+        logger.info("Modification of GregTech/Gregicality material harvest levels complete");
     }
 
     private void setHarvestLevel(String name, int level, Class<?> materials) {
