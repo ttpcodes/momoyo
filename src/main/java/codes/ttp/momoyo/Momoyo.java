@@ -65,6 +65,7 @@ public class Momoyo {
             throw new RuntimeException(e);
         }
 
+        setHarvestLevel("Aluminium", 70, materials);
         logger.info("Modification of GregTech Community Edition material harvest levels complete");
     }
 
