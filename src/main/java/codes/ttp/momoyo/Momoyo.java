@@ -1,5 +1,10 @@
 package codes.ttp.momoyo;
 
+import gregicadditions.GAMaterials;
+import gregtech.api.unification.material.Materials;
+import gregtech.api.unification.material.type.DustMaterial;
+import gregtech.api.unification.material.type.GemMaterial;
+import gregtech.api.unification.material.type.IngotMaterial;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -34,59 +39,23 @@ public class Momoyo {
     @Mod.EventHandler
     public void postinit(FMLPostInitializationEvent event) {
         logger.info("Modifying GregTech/Gregicality material harvest levels");
-        Class<?> gregicalityMaterials;
-        try {
-            gregicalityMaterials = Class.forName("gregicadditions.GAMaterials");
-        } catch (ClassNotFoundException e) {
-            logger.fatal("Gregicality materials were not detected");
-            throw new RuntimeException(e);
-        }
 
-        Class<?> gregtechMaterials;
-        try {
-            gregtechMaterials = Class.forName("gregtech.api.unification.material.Materials");
-        } catch (ClassNotFoundException e) {
-            logger.fatal("GregTech Community Edition materials were not detected");
-            throw new RuntimeException(e);
-        }
-
-        setHarvestLevel("Aluminium", 70, gregtechMaterials);
-        setHarvestLevel("Trinium", 70, gregicalityMaterials);
+        setHarvestLevel(Materials.Aluminium, 70);
+        setHarvestLevel(GAMaterials.Trinium, 70);
 
         logger.info("Modification of GregTech/Gregicality material harvest levels complete");
     }
 
-    private void setHarvestLevel(String name, int level, Class<?> materials) {
-        Field materialField;
-        try {
-            materialField = materials.getField(name);
-        } catch (NoSuchFieldException e) {
-            logger.fatal("{} was not detected as a material", name);
-            throw new RuntimeException(e);
-        }
-
-        Object material;
-        try {
-            material = materialField.get(materials);
-        } catch (IllegalAccessException e) {
-            logger.fatal("Momoyo is forbidden from accessing {} :(", name);
-            throw new RuntimeException(e);
-        }
+    private void setHarvestLevel(DustMaterial material, int level) {
+        Class<? extends DustMaterial> materialClass = material.getClass();
+        String name = materialClass.getSimpleName();
 
         Field harvestLevel;
-        Class<?> materialClass = material.getClass();
         try {
-            switch (materialClass.getSimpleName()) {
-                case "DustMaterial":
-                    harvestLevel = materialClass.getField("harvestLevel");
-                    break;
-                case "GemMaterial":
-                case "IngotMaterial":
-                    harvestLevel = materialClass.getSuperclass().getSuperclass().getField("harvestLevel");
-                    break;
-                default:
-                    logger.fatal("{} was not recognized as a dust, gem, or ingot", name);
-                    throw new RuntimeException("Unhandled material type");
+            if (material instanceof GemMaterial || material instanceof IngotMaterial) {
+                harvestLevel = materialClass.getSuperclass().getSuperclass().getField("harvestLevel");
+            } else {
+                harvestLevel = materialClass.getField("harvestLevel");
             }
         } catch (NoSuchFieldException e) {
             logger.fatal("Could not get harvestLevel field");
