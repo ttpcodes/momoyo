@@ -64,8 +64,20 @@ public class Momoyo {
         }
 
         Field harvestLevel;
+        Class<?> materialClass = material.getClass();
         try {
-            harvestLevel = material.getClass().getSuperclass().getSuperclass().getField("harvestLevel");
+            switch (materialClass.getSimpleName()) {
+                case "DustMaterial":
+                    harvestLevel = materialClass.getField("harvestLevel");
+                    break;
+                case "GemMaterial":
+                case "IngotMaterial":
+                    harvestLevel = materialClass.getSuperclass().getSuperclass().getField("harvestLevel");
+                    break;
+                default:
+                    logger.fatal("{} was not recognized as a dust, gem, or ingot", name);
+                    throw new RuntimeException("Unhandled material type");
+            }
         } catch (NoSuchFieldException e) {
             logger.fatal("Could not get harvestLevel field");
             throw new RuntimeException(e);
