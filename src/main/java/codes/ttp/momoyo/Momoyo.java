@@ -18,7 +18,7 @@ public class Momoyo {
     public static final String MOD_ID = "momoyo";
     public static final String MOD_NAME = "Momoyo";
     public static final String VERSION = "0.0.1";
-    public static final String DEPENDENCIES = "required-before:gregtech";
+    public static final String DEPENDENCIES = "required-before:gregtech;required-before:gtadditions";
 
     private static Logger logger;
 
