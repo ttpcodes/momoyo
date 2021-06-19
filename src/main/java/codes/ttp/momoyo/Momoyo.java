@@ -56,7 +56,16 @@ public class Momoyo {
      */
     @Mod.EventHandler
     public void postinit(FMLPostInitializationEvent event) {
+        logger.info("Modifying GregTech Community Edition material harvest levels");
+        Class<?> materials;
+        try {
+            materials = Class.forName("gregtech.api.unification.material.Materials");
+        } catch (ClassNotFoundException e) {
+            logger.fatal("GregTech Community Edition materials were not detected");
+            throw new RuntimeException(e);
+        }
 
+        logger.info("Modification of GregTech Community Edition material harvest levels complete");
     }
 
     private void setHarvestLevel(String name, int level, Class<?> materials) {
