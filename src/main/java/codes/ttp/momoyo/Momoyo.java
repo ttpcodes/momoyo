@@ -30,6 +30,10 @@ public class Momoyo {
     @Mod.Instance(MOD_ID)
     public static Momoyo INSTANCE;
 
+    public Momoyo() {
+        Element.registerElements();
+    }
+
     @Mod.EventHandler
     public void preinit(FMLPreInitializationEvent event) {
         logger = event.getModLog();
