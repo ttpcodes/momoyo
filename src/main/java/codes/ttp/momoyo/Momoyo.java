@@ -40,8 +40,38 @@ public class Momoyo {
     public void postinit(FMLPostInitializationEvent event) {
         logger.info("Modifying GregTech/Gregicality material harvest levels");
 
-        setHarvestLevel(Materials.Aluminium, 70);
-        setHarvestLevel(GAMaterials.Trinium, 70);
+        setHarvestLevel(Materials.Aluminium, 6);
+        setHarvestLevel(Materials.Apatite, 3);
+        setHarvestLevel(Materials.BandedIron, 3);
+        setHarvestLevel(Materials.BasalticMineralSand, 3);
+        setHarvestLevel(Materials.Bornite, 2);
+        setHarvestLevel(Materials.BrownLimonite, 3);
+        setHarvestLevel(Materials.Calcite, 5);
+        setHarvestLevel(Materials.Cassiterite, 2);
+        setHarvestLevel(Materials.CassiteriteSand, 2);
+        setHarvestLevel(Materials.Chalcocite, 2);
+        setHarvestLevel(Materials.Chalcopyrite, 3);
+        setHarvestLevel(Materials.Cinnabar, 3);
+        setHarvestLevel(Materials.Copper, 2);
+        setHarvestLevel(Materials.Cuprite, 2);
+        setHarvestLevel(GAMaterials.Fluorite, 2);
+        setHarvestLevel(Materials.FullersEarth, 4);
+        setHarvestLevel(Materials.GraniticMineralSand, 3);
+        setHarvestLevel(Materials.Gypsum, 5);
+        setHarvestLevel(Materials.Iron, 3);
+        setHarvestLevel(Materials.Lapis, 3);
+        setHarvestLevel(Materials.Lazurite, 4);
+        setHarvestLevel(Materials.Magnetite, 3);
+        setHarvestLevel(Materials.Malachite, 3);
+        setHarvestLevel(GAMaterials.PreciousMetal, 4);
+        setHarvestLevel(Materials.Pyrite, 3);
+        setHarvestLevel(Materials.Ruby, 3);
+        setHarvestLevel(Materials.Redstone, 4);
+        setHarvestLevel(Materials.Sodalite, 3);
+        setHarvestLevel(Materials.Tenorite, 2);
+        setHarvestLevel(Materials.Topaz, 4);
+        setHarvestLevel(Materials.VanadiumMagnetite, 4);
+        setHarvestLevel(Materials.YellowLimonite, 3);
 
         logger.info("Modification of GregTech/Gregicality material harvest levels complete");
     }
